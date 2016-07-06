@@ -5,7 +5,7 @@
   <body>
     <?php include(HTML_DIR.'/overall/nav.php') ?>
     <div  class="container"> <!-- box-principal -->
-      <h3  align="center">Mi Perfil</h3>
+      <h3  align="center">Catequista</h3>
       <br>
       <div class="panel panel-success">
        <div class="panel-heading">
