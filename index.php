@@ -3,15 +3,15 @@
 session_start();
 
 #Constantes de la conexion FE5C3EE9
-define('DB_HOST', 'mysql.2freehosting.com');
-define('DB_USER', 'u670665053_admin');
-define('DB_PASS', 'mec2016');
-define('DB_NAME', 'u670665053_cateq');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'catequesis');
 
 #Constantes app
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', realpath(dirname(__FILE__)) . DS);
-define('URL', "http://catequesis.honor.es/");
+define('URL', "http://localhost/catequesis/");
 define('HTML_DIR', 'HTML/');
 
 

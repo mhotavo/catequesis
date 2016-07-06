@@ -1,24 +1,23 @@
-
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 05-07-2016 a las 09:58:10
--- Versión del servidor: 5.1.73
--- Versión de PHP: 5.2.17
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 06-07-2016 a las 16:51:00
+-- Versión del servidor: 10.1.9-MariaDB
+-- Versión de PHP: 5.5.34
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `u307413022_mec`
+-- Base de datos: `catequesis`
 --
 
 -- --------------------------------------------------------
@@ -27,13 +26,11 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `asistencia`
 --
 
-CREATE TABLE IF NOT EXISTS `asistencia` (
+CREATE TABLE `asistencia` (
   `ID_INTEGRANTE` int(11) NOT NULL,
   `FECHA` date NOT NULL,
   `ASISTENCIA` tinyint(1) NOT NULL,
-  `FECHALOG` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`FECHA`,`ID_INTEGRANTE`),
-  KEY `ID_INTEGRANTE` (`ID_INTEGRANTE`)
+  `FECHALOG` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -222,19 +219,16 @@ INSERT INTO `asistencia` (`ID_INTEGRANTE`, `FECHA`, `ASISTENCIA`, `FECHALOG`) VA
 -- Estructura de tabla para la tabla `familiar`
 --
 
-CREATE TABLE IF NOT EXISTS `familiar` (
-  `DOCUMENTO` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `familiar` (
+  `DOCUMENTO` int(11) NOT NULL,
   `IDENTIFICACION_INTEGRANTE` int(11) NOT NULL,
   `NOMBRES` varchar(50) NOT NULL,
   `PRIMER_APELLIDO` varchar(25) NOT NULL,
   `SEGUNDO_APELLIDO` varchar(25) DEFAULT NULL,
   `PARENTESCO` varchar(20) NOT NULL,
   `CELULAR` int(30) NOT NULL,
-  `DIRECCION` varchar(50) NOT NULL,
-  PRIMARY KEY (`DOCUMENTO`),
-  KEY `FK_FAMILIAR` (`IDENTIFICACION_INTEGRANTE`),
-  KEY `IDENTIFICACION_INTEGRANTE` (`IDENTIFICACION_INTEGRANTE`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+  `DIRECCION` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `familiar`
@@ -249,8 +243,8 @@ INSERT INTO `familiar` (`DOCUMENTO`, `IDENTIFICACION_INTEGRANTE`, `NOMBRES`, `PR
 -- Estructura de tabla para la tabla `integrante`
 --
 
-CREATE TABLE IF NOT EXISTS `integrante` (
-  `DOCUMENTO` int(12) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `integrante` (
+  `DOCUMENTO` int(12) NOT NULL,
   `NOMBRES` varchar(25) NOT NULL,
   `PRIMER_APELLIDO` varchar(15) NOT NULL,
   `SEGUNDO_APELLIDO` varchar(15) DEFAULT NULL,
@@ -263,9 +257,8 @@ CREATE TABLE IF NOT EXISTS `integrante` (
   `COORDINADOR` tinyint(1) DEFAULT NULL,
   `IMAGEN` longtext,
   `FECHA_INGRESO` date DEFAULT NULL,
-  `FECHA_REGISTRO` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`DOCUMENTO`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+  `FECHA_REGISTRO` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `integrante`
@@ -337,16 +330,14 @@ INSERT INTO `integrante` (`DOCUMENTO`, `NOMBRES`, `PRIMER_APELLIDO`, `SEGUNDO_AP
 -- Estructura de tabla para la tabla `tema`
 --
 
-CREATE TABLE IF NOT EXISTS `tema` (
-  `ID_TEMA` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tema` (
+  `ID_TEMA` int(11) NOT NULL,
   `TEMA` varchar(50) NOT NULL,
   `DESCRIPCION` text NOT NULL,
   `FECHA` date DEFAULT NULL,
   `USUARIOLOG` bigint(11) NOT NULL,
-  `FECHALOG` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID_TEMA`),
-  KEY `USUARIOLOG` (`USUARIOLOG`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `FECHALOG` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tema`
@@ -364,8 +355,8 @@ INSERT INTO `tema` (`ID_TEMA`, `TEMA`, `DESCRIPCION`, `FECHA`, `USUARIOLOG`, `FE
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `ID` bigint(255) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `ID` bigint(255) NOT NULL,
   `DOC` int(20) NOT NULL,
   `USER` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `PASS` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
@@ -374,19 +365,83 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `NOMBRES` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `P_APELLIDO` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `S_APELLIDO` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `GENERO` varchar(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `FECHA_REGISTRO` date DEFAULT NULL,
+  `IMAGEN` text COLLATE utf8_unicode_ci,
   `KEYPASS` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
   `NEWPASS` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ULTIMA_CONEXION` int(32) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  `ULTIMA_CONEXION` int(32) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`ID`, `DOC`, `USER`, `PASS`, `EMAIL`, `ROL`, `NOMBRES`, `P_APELLIDO`, `S_APELLIDO`, `KEYPASS`, `NEWPASS`, `ULTIMA_CONEXION`) VALUES
-(1, 1110540682, 'admin', 'de9fd5a771a37d06cbf841051c9c8aff', 'milton.otavo@gmail.com', 1, 'MILTON', 'OTAVO', 'VARON', '573e5feb61b20121114c322b050f0dfd', '9699F73A', 0);
+INSERT INTO `usuarios` (`ID`, `DOC`, `USER`, `PASS`, `EMAIL`, `ROL`, `NOMBRES`, `P_APELLIDO`, `S_APELLIDO`, `GENERO`, `FECHA_REGISTRO`, `IMAGEN`, `KEYPASS`, `NEWPASS`, `ULTIMA_CONEXION`) VALUES
+(1, 1110540682, 'admin', '4181de8c95c47d5140411213da01b4f7', 'milton.otavo@gmail.com', 1, 'MILTON', 'OTAVO', 'VARON', 'M', '2016-07-03', '55340409pp.jpg', '573e5feb61b20121114c322b050f0dfd', '9699F73A', 0);
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  ADD PRIMARY KEY (`FECHA`,`ID_INTEGRANTE`),
+  ADD KEY `ID_INTEGRANTE` (`ID_INTEGRANTE`);
+
+--
+-- Indices de la tabla `familiar`
+--
+ALTER TABLE `familiar`
+  ADD PRIMARY KEY (`DOCUMENTO`),
+  ADD KEY `FK_FAMILIAR` (`IDENTIFICACION_INTEGRANTE`),
+  ADD KEY `IDENTIFICACION_INTEGRANTE` (`IDENTIFICACION_INTEGRANTE`);
+
+--
+-- Indices de la tabla `integrante`
+--
+ALTER TABLE `integrante`
+  ADD PRIMARY KEY (`DOCUMENTO`);
+
+--
+-- Indices de la tabla `tema`
+--
+ALTER TABLE `tema`
+  ADD PRIMARY KEY (`ID_TEMA`),
+  ADD KEY `USUARIOLOG` (`USUARIOLOG`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `familiar`
+--
+ALTER TABLE `familiar`
+  MODIFY `DOCUMENTO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `integrante`
+--
+ALTER TABLE `integrante`
+  MODIFY `DOCUMENTO` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+--
+-- AUTO_INCREMENT de la tabla `tema`
+--
+ALTER TABLE `tema`
+  MODIFY `ID_TEMA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `ID` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
