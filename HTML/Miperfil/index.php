@@ -108,7 +108,7 @@
 <div class="form-group">
  <div class="col-md-9 col-md-offset-2">
   <input type="hidden" class="form-control" id="id"  name="id" required value="<?php echo $datos['ID']; ?>" >
-  <input type="text" class="form-control" id="nombreImagen" name="nombreImagen"  required value="<?php echo $datos['IMAGEN']; ?>" >
+  <input type="hidden" class="form-control" id="nombreImagen" name="nombreImagen"   value="<?php echo $datos['IMAGEN']; ?>" >
   <button type="reset" class="btn btn-default">Cancelar</button>
   <button type="submit" class="btn btn-success">Editar</button>
 </div>
